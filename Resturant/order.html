@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restaurant Offers</title>
+
+  <!-- Bootstrap & FontAwesome -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .card img {
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      background-color: rgb(5, 5, 5);
+      border-radius: 50%;
+    }
+
+    .carousel-inner {
+      padding: 1rem;
+    }
+    .carousel-control-prev {
+       left: -90px;
+    }
+    .carousel-control-next {
+       right: -90px;
+    }
+  </style>
+</head>
+<body class="bg-light">
+
+  <div class="container py-5">
+    <h2 class="text-center mb-4 fw-bold">🍴 Restaurant Offers</h2>
+
+    <!-- Bootstrap Carousel -->
+    <div id="offerCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+
+        <!-- Slide 1 -->
+        <div class="carousel-item active">
+          <div class="row justify-content-center g-4">
+            <!-- Card 1 -->
+            <div class="col-md-4">
+              <div class="card h-100 shadow-sm">
+                <img src="img-offers/chicken-biriyani.jpg" class="card-img-top" alt="Chicken Biriyani">
+                <div class="p-3">
+                  <h5 class="fw-bold">Chicken Biriyani</h5>
+                  <p class="text-muted mb-2">Order Value: ₹149</p>
+                  <button class="btn btn-warning w-100 rounded-4">
+                    <i class="fa-solid fa-tag me-2"></i>Apply Offer
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="col-md-4">
+              <div class="card h-100 shadow-sm">
+                <img src="img-offers/paneer butter masala.jpg" class="card-img-top" alt="Paneer Butter Masala">
+                <div class="p-3">
+                  <h5 class="fw-bold">Paneer Butter Masala</h5>
+                  <p class="text-muted mb-2">Order Value: ₹299</p>
+                  <button class="btn btn-warning w-100 rounded-4">
+                    <i class="fa-solid fa-tag me-2"></i>Apply Offer
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="col-md-4">
+              <div class="card h-100 shadow-sm">
+                <img src="img-offers/chicken majestic.jpg" class="card-img-top" alt="Chicken Majestic">
+                <div class="p-3">
+                  <h5 class="fw-bold">Chicken Majestic</h5>
+                  <p class="text-muted mb-2">Order Value: ₹259</p>
+                  <button class="btn btn-warning w-100 rounded-4">
+                    <i class="fa-solid fa-tag me-2"></i>Apply Offer
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="carousel-item">
+          <div class="row justify-content-center g-4">
+            <!-- Card 4 -->
+            <div class="col-md-4">
+              <div class="card h-100 shadow-sm">
+                <img src="img-offers/muushroom masala.jpg" class="card-img-top" alt="Mushroom Masala">
+                <div class="p-3">
+                  <h5 class="fw-bold">Mushroom Masala</h5>
+                  <p class="text-muted mb-2">Order Value: ₹199</p>
+                  <button class="btn btn-warning w-100 rounded-4">
+                    <i class="fa-solid fa-tag me-2"></i>Apply Offer
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="col-md-4">
+              <div class="card h-100 shadow-sm">
+                <img src="img-offers/panner bhurji.jpg" class="card-img-top" alt="Paneer Bhurji">
+                <div class="p-3">
+                  <h5 class="fw-bold">Paneer Bhurji</h5>
+                  <p class="text-muted mb-2">Order Value: ₹239</p>
+                  <button class="btn btn-warning w-100 rounded-4">
+                    <i class="fa-solid fa-tag me-2"></i>Apply Offer
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="col-md-4">
+              <div class="card h-100 shadow-sm">
+                <img src="img-offers/chicken korma.jpg" class="card-img-top" alt="Chicken Korma">
+                <div class="p-3">
+                  <h5 class="fw-bold">Chicken Korma</h5>
+                  <p class="text-muted mb-2">Order Value: ₹319</p>
+                  <button class="btn btn-warning w-100 rounded-4">
+                    <i class="fa-solid fa-tag me-2"></i>Apply Offer
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="carousel-item">
+          <div class="row justify-content-center g-4">
+            <!-- Card 7 -->
+            <div class="col-md-4">
+              <div class="card h-100 shadow-sm">
+                <img src="img-offers/chicken madras.jpg" class="card-img-top" alt="Chicken Madras">
+                <div class="p-3">
+                  <h5 class="fw-bold">Chicken Madras Curry</h5>
+                  <p class="text-muted mb-2">Order Value: ₹279</p>
+                  <button class="btn btn-warning w-100 rounded-4">
+                    <i class="fa-solid fa-tag me-2"></i>Apply Offer
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 8 -->
+            <div class="col-md-4">
+              <div class="card h-100 shadow-sm">
+                <img src="img-offers/chicken wings.jpg" class="card-img-top" alt="Chicken Wings">
+                <div class="p-3">
+                  <h5 class="fw-bold">Wings Masala</h5>
+                  <p class="text-muted mb-2">Order Value: ₹199</p>
+                  <button class="btn btn-warning w-100 rounded-4">
+                    <i class="fa-solid fa-tag me-2"></i>Apply Offer
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 9 -->
+            <div class="col-md-4">
+              <div class="card h-100 shadow-sm">
+                <img src="img-offers/tandoori.jpg" class="card-img-top" alt="Chicken Tandoori">
+                <div class="p-3">
+                  <h5 class="fw-bold">Chicken Tandoori</h5>
+                  <p class="text-muted mb-2">Order Value: ₹299</p>
+                  <button class="btn btn-warning w-100 rounded-4">
+                    <i class="fa-solid fa-tag me-2"></i>Apply Offer
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="carousel-item">
+          <div class="row justify-content-center g-4">
+            <!-- Card 10 -->
+            <div class="col-md-4">
+              <div class="card h-100 shadow-sm">
+                <img src="img-offers/chicken fried rice.jpg" class="card-img-top" alt="Chicken Fried Rice">
+                <div class="p-3">
+                  <h5 class="fw-bold">Chicken Fried Rice</h5>
+                  <p class="text-muted mb-2">Order Value: ₹299</p>
+                  <button class="btn btn-warning w-100 rounded-4">
+                    <i class="fa-solid fa-tag me-2"></i>Apply Offer
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="card h-100 shadow-sm">
+                <img src="img-offers/dessert.jpg" class="card-img-top" alt="Chicken Fried Rice">
+                <div class="p-3">
+                  <h5 class="fw-bold">Pastry</h5>
+                  <p class="text-muted mb-2">Order Value: ₹99</p>
+                  <button class="btn btn-warning w-100 rounded-4">
+                    <i class="fa-solid fa-tag me-2"></i>Apply Offer
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Carousel Controls -->
+      <button class="carousel-control-prev" type="button" data-bs-target="#offerCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+
+      <button class="carousel-control-next" type="button" data-bs-target="#offerCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

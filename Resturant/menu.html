@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RFC Menu | Save More as You Order</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/>
+
+  <style>
+    :root {
+      --kfc-red: #e4002b;
+      --kfc-dark: #000;
+      --kfc-yellow: #FFC72C;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #fff;
+    }
+
+    /* === TOP BAR === */
+    .top-bar {
+      background: #fff;
+      border-bottom: 1px solid #eee;
+      padding: 0.5rem 0;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .location-btn {
+      background: var(--kfc-dark);
+      color: #fff;
+      border-radius: 2rem;
+      padding: 0.25rem 1rem;
+      font-weight: 600;
+      font-size: 0.875rem;
+      border: none;
+    }
+
+    /* === HEADER === */
+    .kfc-header {
+      background: #fff;
+      padding: 1rem 0;
+      border-bottom: 1px solid #eee;
+    }
+    .kfc-logo img { height: 60px; }
+    .kfc-header .nav-link {
+      color: var(--kfc-dark);
+      font-weight: 600;
+      text-decoration: none;
+      padding: 0.5rem 0;
+    }
+    .divider { color: #ccc; font-weight: 300; }
+    .bucket-icon { width: 32px; height: 40px; object-fit: contain; }
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: var(--kfc-red);
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 700;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* === CTA BAR === */
+    .cta-bar {
+      background: var(--kfc-dark);
+      color: #fff;
+      padding: 1rem 0;
+      text-align: center;
+    }
+    .btn-order {
+      background: var(--kfc-red);
+      color: #fff;
+      border: none;
+      border-radius: 2rem;
+      padding: 0.5rem 2rem;
+      font-weight: 600;
+      font-size: 1rem;
+      margin-left: 1rem;
+    }
+
+    /* === MAIN CONTENT === */
+    .main-content {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      display: flex;
+      gap: 40px;
+    }
+    .sidebar {
+      flex: 0 0 220px;
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+    }
+    .menu-category {
+      display: block;
+      padding: 12px 0;
+      font-size: 1rem;
+      color: #555;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+    .menu-category:hover,
+    .menu-category.active {
+      color: var(--kfc-red);
+      font-weight: 700;
+      border-left: 4px solid var(--kfc-red);
+      padding-left: 8px;
+    }
+
+    /* === MENU SECTIONS === */
+    .menu-section {
+      margin-bottom: 60px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .menu-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .section-title {
+      font-size: 2rem;
+      font-weight: bold;
+      color: var(--kfc-red);
+      margin-bottom: 25px;
+      text-align: center;
+      position: relative;
+    }
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: var(--kfc-red);
+      margin: 10px auto 0;
+      border-radius: 2px;
+    }
+
+    .menu-card {
+      border: none;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      background: #fff;
+    }
+    .menu-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+    }
+    .card-img-top {
+      height: 180px;
+      object-fit: cover;
+      border-bottom: 3px solid var(--kfc-red);
+    }
+    .veg-icon { color: #2e8b57; }
+    .nonveg-icon { color: #dc3545; }
+    .price {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: var(--kfc-red);
+    }
+    .btn-add-cart {
+      background: var(--kfc-red);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 10px 20px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 auto;
+      transition: all 0.3s;
+      width: 200px;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-add-cart:hover {
+      background: #c70024;
+      transform: scale(1.05);
+    }
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.7);
+      width: 100px;
+      height: 100px;
+      margin-left: -50px;
+      margin-top: -50px;
+      animation: ripple 0.7s ease-out;
+      pointer-events: none;
+    }
+    @keyframes ripple {
+      to { transform: scale(4); opacity: 0; }
+    }
+
+    /* === FOOTER === */
+    .footer {
+      background-color: #000;
+      color: #fff;
+      padding: 50px 0 20px;
+    }
+    .footer a { color: #ccc; text-decoration: none; transition: color 0.3s; }
+    .footer a:hover { color: #fff; }
+    .footer-logo img { width: 120px; }
+    .social-icons a { color: #fff; font-size: 1.4rem; margin-right: 15px; }
+    .social-icons a:hover { color: var(--kfc-red); }
+    .footer-bottom { border-top: 1px solid #333; margin-top: 30px; padding-top: 20px; text-align: center; font-size: 0.9rem; color: #aaa; }
+
+    @media (max-width: 992px) {
+      .main-content { flex-direction: column; padding: 20px 15px; }
+      .sidebar { flex-direction: row; overflow-x: auto; position: static; padding-bottom: 15px; }
+      .menu-category { white-space: nowrap; padding: 8px 15px; border-left: none !important; border-bottom: 3px solid transparent; }
+      .menu-category.active { border-bottom: 3px solid var(--kfc-red); color: var(--kfc-red); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar d-flex align-items-center justify-content-center gap-3 flex-wrap">
+    <i class="bi bi-geo-alt-fill text-danger"></i>
+    <span>Allow location access for local store menu and promos</span>
+    <button class="btn location-btn btn-sm" data-bs-toggle="modal" data-bs-target="#locationModal">
+      Set Location
+    </button>
+  </div>
+
+  <!-- Header -->
+  <header class="kfc-header container">
+    <div class="row align-items-center">
+      <div class="col-md-4 d-flex align-items-center">
+        <a href="Resturent.html" class="kfc-logo me-4">
+          <img src="logo.png" alt="RFC">
+        </a>
+        <nav class="d-none d-md-flex gap-4">
+          <a href="menu.html" class="nav-link">Menu</a>
+          <a href="#" class="nav-link">Deals</a>
+        </nav>
+      </div>
+      <div class="col-md-8 text-md-end d-flex justify-content-end align-items-center gap-3">
+        <a href="login.html" class="text-dark"><i class="bi bi-person-circle fs-4"></i> <span class="d-none d-lg-inline">Sign In</span></a>
+        <span class="divider">|</span>
+        <a href="cart.html" class="position-relative">
+          <img src="cart.png" alt="Cart" class="bucket-icon">
+          <span id="cartCount" class="cart-count"></span>
+        </a>
+      </div>
+    </div>
+  </header>
+ 
+
+  <!-- CTA Bar -->
+  <section class="cta-bar">
+    <div class="container d-flex flex-column flex-md-row justify-content-center align-items-center gap-3">
+      <p class="mb-0 text-uppercase fw-bold">Let’s order for delivery, pick up, or dine-in</p>
+      <button class="btn btn-order text-white">Start Order</button>
+    </div>
+  </section>
+
+  <!-- Location Modal -->
+  <div class="modal fade" id="locationModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Set Your Location</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p class="small text-muted">We’ll use your location to show the menu & promos for the nearest RFC.</p>
+          <div class="d-grid gap-2">
+            <button id="useCurrentLocation" class="btn btn-outline-danger">
+              Use Current Location
+            </button>
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Enter city or postcode">
+              <button class="btn btn-danger">Search</button>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h2>RFC MENU</h2>
+      <div class="menu-category active" data-target="gold">Gold Edition</div>
+      <div class="menu-category" data-target="variety">RFC Variety Buckets</div>
+      <div class="menu-category" data-target="chicken">Chicken Buckets</div>
+      <div class="menu-category" data-target="drinks">Drinks</div>
+      <div class="menu-category" data-target="veg">Veg</div>
+      <div class="menu-category" data-target="boxmeals">Box Meals</div>
+      <div class="menu-category" data-target="wings">Chicken Wings</div>
+      <div class="menu-category" data-target="desserts">Desserts</div>
+    </aside>
+
+    <!-- Menu Sections -->
+    <section class="promo-section flex-fill">
+
+      <!-- Gold Edition -->
+      <div id="gold" class="menu-section">
+        <h2 class="section-title">Gold Edition Zingers</h2>
+        <div class="row g-4">
+          <!-- Add to Cart with image -->
+          <div class="col-md-4">
+            <div class="card menu-card h-100">
+              <img src="img/images-main img/snack&slides.jpg" class="card-img-top" alt="Zinger & Fries">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Chicken Zinger & Fries</h5>
+                <p class="card-text text-muted small">Non veg</p>
+                <p class="card-text">Cheesy Chicken Zinger + Reg Fries</p>
+                <div class="price">₹199</div>
+                <button class="btn btn-add-cart mt-auto"
+                        data-name="Chicken Zinger & Fries"
+                        data-price="199"
+                        data-img="img/images-main img/snack&slides.jpg">
+                  Add to cart
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Repeat for all items -->
+          <!-- Example: -->
+          <div class="col-md-4">
+            <div class="card menu-card h-100">
+              <img src="img/images-main img/manchuria.jpg" class="card-img-top" alt="Double Zinger">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Double Chicken Zinger</h5>
+                <p class="card-text text-muted small">Non veg</p>
+                <p class="card-text">Two juicy patties + cheese</p>
+                <div class="price">₹249</div>
+                <button class="btn btn-add-cart mt-auto"
+                        data-name="Double Chicken Zinger"
+                        data-price="249"
+                        data-img="img/images-main img/manchuria.jpg">
+                  Add to cart
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Add all other items in same format -->
+           <div class="col-md-4">
+      <div class="card menu-card h-100">
+        <img src="img/images-main img/img1.jpg" class="card-img-top" alt="Veg Zinger">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">Gold Veg Zinger</h5>
+          <p class="card-text text-muted small"><i class="fa-solid fa-circle veg-icon"></i> Veg</p>
+          <p class="card-text">Crispy veg patty + cheese + lettuce</p>
+          <div class="price">₹179</div>
+          <button class="btn btn-add-cart mt-auto"
+                        data-name="Double Chicken Zinger"
+                        data-price="249"
+                        data-img="img/images-main img/manchuria.jpg">
+                  Add to cart
+                </button>
+        </div>
+      </div>
+      </div>
+
+      <!-- 4. Zinger Box Combo -->
+      <div class="col-md-4">
+      <div class="card menu-card h-100">
+        <img src="img/images-main img/nonveg.jpg" class="card-img-top" alt="Zinger Box">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">Gold Zinger Box</h5>
+          <p class="card-text text-muted small"><i class="fa-solid fa-triangle-exclamation nonveg-icon"></i> Non veg</p>
+          <p class="card-text">Zinger + Fries + Pepsi + 2 Strips</p>
+          <div class="price">₹349</div>
+          <button class="btn btn-add-cart mt-auto"
+                        data-name="Double Chicken Zinger"
+                        data-price="249"
+                        data-img="img/images-main img/manchuria.jpg">
+                  Add to cart
+                </button>
+        </div>
+      </div>
+      </div>
+      <!-- 5. Cheesy Zinger Roll -->
+      <div class="col-md-4">
+      <div class="card menu-card h-100">
+        <img src="img/images-main img/bur.png" class="card-img-top" alt="Zinger Roll">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">Cheesy Zinger Roll</h5>
+          <p class="card-text text-muted small"><i class="fa-solid fa-triangle-exclamation nonveg-icon"></i> Non veg</p>
+          <p class="card-text">Zinger strips + cheese in soft roll</p>
+          <div class="price">₹159</div>
+          <button class="btn btn-add-cart mt-auto"
+                        data-name="Double Chicken Zinger"
+                        data-price="249"
+                        data-img="img/images-main img/manchuria.jpg">
+                  Add to cart
+                </button>
+        </div>
+      </div>
+      </div>
+      <!-- 6. Gold Peri Peri Zinger -->
+      <div class="col-md-4">
+      <div class="card menu-card h-100">
+        <img src="img/images-main img/manchuria.jpg" class="card-img-top" alt="Peri Peri Zinger">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">Peri Peri Gold Zinger</h5>
+          <p class="card-text text-muted small"><i class="fa-solid fa-triangle-exclamation nonveg-icon"></i> Non veg</p>
+          <p class="card-text">Spicy peri peri sauce + crispy chicken</p>
+          <div class="price">₹229</div>
+          <button class="btn btn-add-cart mt-auto"
+                        data-name="Double Chicken Zinger"
+                        data-price="249"
+                        data-img="img/images-main img/manchuria.jpg">
+                  Add to cart
+                </button>
+        </div>
+      </div>
+      </div>
+        </div>
+      </div>
+
+      <!-- Variety Buckets -->
+      <div id="variety" class="menu-section">
+      <h2 class="section-title" >
+     RFC Variety Buckets
+      </h2>
+      <div class="row g-4">
+
+      <!-- 1. Super 6 Bucket -->
+      <div class="col-md-4">
+      <div class="card menu-card h-100">
+        <img src="img/images-main img/nonveg.jpg" class="card-img-top" alt="Super 6">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">Super 6 Bucket</h5>
+          <p class="card-text text-muted small"><i class="fa-solid fa-triangle-exclamation nonveg-icon"></i> Non veg</p>
+          <p class="card-text">2pc HC + 2pc SM + 4pc Wings + 2 Strips</p>
+          <div class="price" >₹699</div>
+          <button class="btn btn-add-cart mt-auto"
+                        data-name="Double Chicken Zinger"
+                        data-price="249"
+                        data-img="img/images-main img/manchuria.jpg">
+                  Add to cart
+                </button>
+        </div>
+      </div>
+      </div>
+
+      <!-- 2. Family Feast -->
+      <div class="col-md-4">
+      <div class="card menu-card h-100">
+        <img src="img/images-main img/manchuria.jpg" class="card-img-top" alt="Family Feast">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">Family Feast</h5>
+          <p class="card-text text-muted small"><i class="fa-solid fa-triangle-exclamation nonveg-icon"></i> Non veg</p>
+          <p class="card-text">8pc Hot & Crispy + 4pc Wings + Large Fries</p>
+          <div class="price" >₹999</div>
+          <button class="btn btn-add-cart mt-auto"
+                        data-name="Double Chicken Zinger"
+                        data-price="249"
+                        data-img="img/images-main img/manchuria.jpg">
+                  Add to cart
+                </button>
+        </div>
+      </div>
+      </div>
+
+      <!-- 3. Zinger Variety Box -->
+      <div class="col-md-4">
+      <div class="card menu-card h-100">
+        <img src="img/images-main img/bur.png" class="card-img-top" alt="Zinger Box">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">Zinger Variety Box</h5>
+          <p class="card-text text-muted small"><i class="fa-solid fa-triangle-exclamation nonveg-icon"></i> Non veg</p>
+          <p class="card-text">2 Zingers + 2 Rolls + 4 Strips + 2 Drinks</p>
+          <div class="price" >₹849</div>
+          <button class="btn btn-add-cart mt-auto"
+                        data-name="Double Chicken Zinger"
+                        data-price="249"
+                        data-img="img/images-main img/manchuria.jpg">
+                  Add to cart
+                </button>
+        </div>
+      </div>
+      </div>
+
+      <!-- 4. Peri Peri Variety -->
+      <div class="col-md-4">
+      <div class="card menu-card h-100">
+        <img src="img/images-main img/snack&slides.jpg" class="card-img-top" alt="Peri Peri">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">Peri Peri Variety</h5>
+          <p class="card-text text-muted small"><i class="fa-solid fa-triangle-exclamation nonveg-icon"></i> Non veg</p>
+          <p class="card-text">4pc Peri Peri Strips + 6pc Wings + 2 Dips</p>
+          <div class="price" >₹599</div>
+          <button class="btn btn-add-cart mt-auto"
+                        data-name="Double Chicken Zinger"
+                        data-price="249"
+                        data-img="img/images-main img/manchuria.jpg">
+                  Add to cart
+                </button>
+        </div>
+      </div>
+      </div>
+
+      <!-- 5. Ultimate Saver Bucket -->
+      <div class="col-md-4">
+      <div class="card menu-card h-100">
+        <img src="img/images-main img/nonveg.jpg" class="card-img-top" alt="Ultimate Saver">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">Ultimate Saver Bucket</h5>
+          <p class="card-text text-muted small"><i class="fa-solid fa-triangle-exclamation nonveg-icon"></i> Non veg</p>
+          <p class="card-text">10pc Hot & Crispy + 2 Large Fries + 2 Pepsi</p>
+          <div class="price" >₹1,199</div>
+          <button class="btn btn-add-cart mt-auto"
+                        data-name="Double Chicken Zinger"
+                        data-price="249"
+                        data-img="img/images-main img/manchuria.jpg">
+                  Add to cart
+                </button>
+        </div>
+      </div>
+      </div>
+
+      <!-- 6. Mix & Match Bucket -->
+      <div class="col-md-4">
+      <div class="card menu-card h-100">
+        <img src="img/images-main img/manchuria.jpg" class="card-img-top" alt="Mix & Match">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">Mix & Match Bucket</h5>
+          <p class="card-text text-muted small"><i class="fa-solid fa-triangle-exclamation nonveg-icon"></i> Non veg</p>
+          <p class="card-text">Choose any 8pc: HC, SM, Wings, Strips</p>
+          <div class="price" >₹799</div>
+          <button class="btn btn-add-cart mt-auto"
+                        data-name="Double Chicken Zinger"
+                        data-price="249"
+                        data-img="img/images-main img/manchuria.jpg">
+                  Add to cart
+                </button>
+        </div>
+      </div>
+      </div>
+
+      </div>
+      </div>
+
+      <!-- Chicken Buckets -->
+      <div id="chicken" class="menu-section">
+      <h2 class="section-title" >
+     Chicken Buckets
+      </h2>
+      <div class="row g-4">
+
+      <!-- 1. 8pc Hot & Crispy -->
+      <div class="col-md-4">
+      <div class="card menu-card h-100">
+        <img src="img/images-main img/nonveg.jpg" class="card-img-top" alt="8pc Hot & Crispy">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">8pc Hot & Crispy</h5>
+          <p class="card-text text-muted small"><i class="fa-solid fa-triangle-exclamation nonveg-icon"></i> Non veg</p>
+          <p class="card-text">8 pieces of signature crispy chicken</p>
+          <div class="price" >₹749</div>
+          <button class="btn btn-add-cart mt-auto"
+                        data-name="Double Chicken Zinger"
+                        data-price="249"
+                        data-img="img/images-main img/manchuria.jpg">
+                  Add to cart
+                </button>
+        </div>
+      </div>
+      </div>
+
+      <!-- 2. 12pc Smoky Grilled -->
+      <div class="col-md-4">
+      <div class="card menu-card h-100">
+        <img src="img/images-main img/manchuria.jpg" class="card-img-top" alt="12pc Smoky">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">12pc Smoky Grilled</h5>
+          <p class="card-text text-muted small"><i class="fa-solid fa-triangle-exclamation nonveg-icon"></i> Non veg</p>
+          <p class="card-text">Juicy grilled chicken with smoky flavor</p>
+          <div class="price" >₹999</div>
+          <button class="btn btn-add-cart mt-auto"
+                        data-name="Double Chicken Zinger"
+                        data-price="249"
+                        data-img="img/images-main img/manchuria.jpg">
+                  Add to cart
+                </button>
+        </div>
+      </div>
+      </div>
+
+      <!-- 3. 6pc Peri Peri Strips -->
+      <div class="col-md-4">
+      <div class="card menu-card h-100">
+        <img src="img/images-main img/bur.png" class="card-img-top" alt="Peri Peri Strips">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">6pc Peri Peri Strips</h5>
+          <p class="card-text text-muted small"><i class="fa-solid fa-triangle-exclamation nonveg-icon"></i> Non veg</p>
+          <p class="card-text">Spicy peri peri marinated chicken strips</p>
+          <div class="price" >₹479</div>
+          <button class="btn btn-add-cart mt-auto"
+                        data-name="Double Chicken Zinger"
+                        data-price="249"
+                        data-img="img/images-main img/manchuria.jpg">
+                  Add to cart
+                </button>
+        </div>
+      </div>
+      </div>
+
+      <!-- 4. 10pc Mingles Bucket -->
+      <div class="col-md-4">
+      <div class="card menu-card h-100">
+        <img src="img/images-main img/snack&slides.jpg" class="card-img-top" alt="Mingles Bucket">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">10pc Mingles Bucket</h5>
+          <p class="card-text text-muted small"><i class="fa-solid fa-triangle-exclamation nonveg-icon"></i> Non veg</p>
+          <p class="card-text">4pc HC + 4pc Strips + 2pc Wings</p>
+          <div class="price" >₹899</div>
+          <button class="btn btn-add-cart mt-auto"
+                        data-name="Double Chicken Zinger"
+                        data-price="249"
+                        data-img="img/images-main img/manchuria.jpg">
+                  Add to cart
+                </button>
+        </div>
+      </div>
+      </div>
+
+      <!-- 5. 15pc Hot Wings Bucket -->
+      <div class="col-md-4">
+      <div class="card menu-card h-100">
+        <img src="img/images-main img/nonveg.jpg" class="card-img-top" alt="Hot Wings">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">15pc Hot Wings Bucket</h5>
+          <p class="card-text text-muted small"><i class="fa-solid fa-triangle-exclamation nonveg-icon"></i> Non veg</p>
+          <p class="card-text">Spicy, crispy wings with 3 dips</p>
+          <div class="price" >₹799</div>
+          <button class="btn btn-add-cart mt-auto"
+                        data-name="Double Chicken Zinger"
+                        data-price="249"
+                        data-img="img/images-main img/manchuria.jpg">
+                  Add to cart
+                </button>
+        </div>
+      </div>
+      </div>
+
+      <!-- 6. Classic Bucket for 2 -->
+      <div class="col-md-4">
+      <div class="card menu-card h-100">
+        <img src="img/images-main img/manchuria.jpg" class="card-img-top" alt="Bucket for 2">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">Classic Bucket for 2</h5>
+          <p class="card-text text-muted small"><i class="fa-solid fa-triangle-exclamation nonveg-icon"></i> Non veg</p>
+          <p class="card-text">4pc HC + 2 Strips + 2 Pepsi</p>
+          <div class="price" >₹599</div>
+          <button class="btn btn-add-cart mt-auto"
+                        data-name="Double Chicken Zinger"
+                        data-price="249"
+                        data-img="img/images-main img/manchuria.jpg">
+                  Add to cart
+                </button>
+        </div>
+      </div>
+      </div>
+
+      </div>
+      </div>
+      <div id="drinks" class="menu-section visible">
+        <h2 class="section-title" ><i class="fas fa-coffee"></i> Drinks</h2>
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="card menu-card h-100">
+              <img src="img/images-main img/drinks.jpg" class="card-img-top" alt="Pepsi">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Pepsi 500ml</h5>
+                <p class="card-text text-muted small">Veg</p>
+                <p class="card-text">Chilled carbonated drink</p>
+                <div class="price">₹60</div>
+                <button class="btn btn-add-cart mt-auto"
+                        data-name="Double Chicken Zinger"
+                        data-price="249"
+                        data-img="img/images-main img/manchuria.jpg">
+                  Add to cart
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card menu-card h-100">
+              <img src="img/images-main img/drinks.jpg" class="card-img-top" alt="Mirinda">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Mirinda 500ml</h5>
+                <p class="card-text text-muted small">Veg</p>
+                <p class="card-text">Orange flavored soda</p>
+                <div class="price">₹60</div>
+                <button class="btn btn-add-cart mt-auto"
+                        data-name="Double Chicken Zinger"
+                        data-price="249"
+                        data-img="img/images-main img/manchuria.jpg">
+                  Add to cart
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card menu-card h-100">
+              <img src="img/images-main img/drinks.jpg" class="card-img-top" alt="7UP">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">7UP 500ml</h5>
+                <p class="card-text text-muted small">Veg</p>
+                <p class="card-text">Lemon-lime refreshment</p>
+                <div class="price">₹60</div>
+                <button class="btn btn-add-cart mt-auto"
+                        data-name="Double Chicken Zinger"
+                        data-price="249"
+                        data-img="img/images-main img/manchuria.jpg">
+                  Add to cart
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card menu-card h-100">
+              <img src="img/images-main img/drinks.jpg" class="card-img-top" alt="Mocha">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Krusher Mocha</h5>
+                <p class="card-text text-muted small">Veg</p>
+                <p class="card-text">Iced coffee blended drink</p>
+                <div class="price">₹149</div>
+                <button class="btn btn-add-cart mt-auto"
+                        data-name="Double Chicken Zinger"
+                        data-price="249"
+                        data-img="img/images-main img/manchuria.jpg">
+                  Add to cart
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card menu-card h-100">
+              <img src="img/images-main img/drinks.jpg" class="card-img-top" alt="Lipton">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Lipton Iced Tea</h5>
+                <p class="card-text text-muted small">Veg</p>
+                <p class="card-text">Lemon flavored iced tea</p>
+                <div class="price">₹70</div>
+                <button class="btn btn-add-cart mt-auto"
+                        data-name="Double Chicken Zinger"
+                        data-price="249"
+                        data-img="img/images-main img/manchuria.jpg">
+                  Add to cart
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card menu-card h-100">
+              <img src="img/images-main img/drinks.jpg" class="card-img-top" alt="Water">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Mineral Water 1L</h5>
+                <p class="card-text text-muted small">Veg</p>
+                <p class="card-text">Pure & safe drinking water</p>
+                <div class="price">₹50</div>
+                <button class="btn btn-add-cart mt-auto"
+                        data-name="Double Chicken Zinger"
+                        data-price="249"
+                        data-img="img/images-main img/manchuria.jpg">
+                  Add to cart
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- === NEW: VEG === -->
+      <div id="veg" class="menu-section visible">
+        <h2 class="section-title" ><i class="fas fa-leaf"></i> Veg</h2>
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="card menu-card h-100">
+              <img src="img/images-main img/veg.jpg" class="card-img-top" alt="Veg Zinger">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Veg Zinger</h5>
+                <p class="card-text text-muted small">Veg</p>
+                <p class="card-text">Crispy veg patty with mayo</p>
+                <div class="price">₹139</div>
+                <button class="btn btn-add-cart mt-auto"
+                        data-name="Double Chicken Zinger"
+                        data-price="249"
+                        data-img="img/images-main img/manchuria.jpg">
+                  Add to cart
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card menu-card h-100">
+              <img src="img/images-main img/manchuria.jpg" class="card-img-top" alt="Paneer">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Paneer Zinger</h5>
+                <p class="card-text text-muted small">Veg</p>
+                <p class="card-text">Spicy paneer patty + cheese</p>
+                <div class="price">₹169</div>
+                <button class="btn btn-add-cart mt-auto"
+                        data-name="Double Chicken Zinger"
+                        data-price="249"
+                        data-img="img/images-main img/manchuria.jpg">
+                  Add to cart
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card menu-card h-100">
+              <img src="img/images-main img/vegpizza.jpg" class="card-img-top" alt="Veg Roll">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Veg Crunch Roll</h5>
+                <p class="card-text text-muted small">Veg</p>
+                <p class="card-text">Crispy veg in soft roll</p>
+                <div class="price">₹99</div>
+                <button class="btn btn-add-cart mt-auto"
+                        data-name="Double Chicken Zinger"
+                        data-price="249"
+                        data-img="img/images-main img/manchuria.jpg">
+                  Add to cart
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card menu-card h-100">
+              <img src="img/images-main img/veg.jpg" class="card-img-top" alt="Corn">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Corn & Cheese Pop</h5>
+                <p class="card-text text-muted small">Veg</p>
+                <p class="card-text">Sweet corn with melted cheese</p>
+                <div class="price">₹129</div>
+                <button class="btn btn-add-cart mt-auto"
+                        data-name="Double Chicken Zinger"
+                        data-price="249"
+                        data-img="img/images-main img/manchuria.jpg">
+                  Add to cart
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card menu-card h-100">
+              <img src="img/images-main img/manchuria.jpg" class="card-img-top" alt="Aloo">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Aloo Tikki Burger</h5>
+                <p class="card-text text-muted small">Veg</p>
+                <p class="card-text">Spiced potato patty + tangy sauce</p>
+                <div class="price">₹89</div>
+                <button class="btn btn-add-cart mt-auto"
+                        data-name="Double Chicken Zinger"
+                        data-price="249"
+                        data-img="img/images-main img/manchuria.jpg">
+                  Add to cart
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card menu-card h-100">
+              <img src="img/images-main img/vegpizza.jpg" class="card-img-top" alt="Veg Strip">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Veg Strips (4pc)</h5>
+                <p class="card-text text-muted small">Veg</p>
+                <p class="card-text">Crispy veg strips with dip</p>
+                <div class="price">₹119</div>
+                <button class="btn btn-add-cart mt-auto"
+                        data-name="Double Chicken Zinger"
+                        data-price="249"
+                        data-img="img/images-main img/manchuria.jpg">
+                  Add to cart
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- === NEW: BOX MEALS === -->
+      <div id="boxmeals" class="menu-section visible">
+        <h2 class="section-title" ><i class="fas fa-box"></i> Box Meals</h2>
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="card menu-card h-100">
+              <img src="img/images-main img/boxmeals.jpg" class="card-img-top" alt="Zinger Box">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Zinger Box</h5>
+                <p class="card-text text-muted small">Non veg</p>
+                <p class="card-text">Zinger + Fries + Drink + Strips</p>
+                <div class="price">₹349</div>
+                <button class="btn btn-add-cart mt-auto"
+                        data-name="Double Chicken Zinger"
+                        data-price="249"
+                        data-img="img/images-main img/manchuria.jpg">
+                  Add to cart
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card menu-card h-100">
+              <img src="img/images-main img/boxmeals.jpg" class="card-img-top" alt="Popcorn Box">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Popcorn Rice Box</h5>
+                <p class="card-text text-muted small">Non veg</p>
+                <p class="card-text">Popcorn + Rice + Gravy + Drink</p>
+                <div class="price">₹299</div>
+                <button class="btn btn-add-cart mt-auto"
+                        data-name="Double Chicken Zinger"
+                        data-price="249"
+                        data-img="img/images-main img/manchuria.jpg">
+                  Add to cart
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card menu-card h-100">
+              <img src="img/images-main img/boxmeals.jpg" class="card-img-top" alt="Veg Box">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Veg Zinger Box</h5>
+                <p class="card-text text-muted small">Veg</p>
+                <p class="card-text">Veg Zinger + Fries + Drink</p>
+                <div class="price">₹279</div>
+                <button class="btn btn-add-cart mt-auto"
+                        data-name="Double Chicken Zinger"
+                        data-price="249"
+                        data-img="img/images-main img/manchuria.jpg">
+                  Add to cart
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card menu-card h-100">
+              <img src="img/images-main img/boxmeals.jpg" class="card-img-top" alt="Wings Box">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Hot Wings Box</h5>
+                <p class="card-text text-muted small">Non veg</p>
+                <p class="card-text">6 Wings + Fries + Drink</p>
+                <div class="price">₹329</div>
+                <button class="btn btn-add-cart mt-auto"
+                        data-name="Double Chicken Zinger"
+                        data-price="249"
+                        data-img="img/images-main img/manchuria.jpg">
+                  Add to cart
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card menu-card h-100">
+              <img src="img/images-main img/boxmeals.jpg" class="card-img-top" alt="Biryani Box">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Chicken Biryani Box</h5>
+                <p class="card-text text-muted small">Non veg</p>
+                <p class="card-text">Biryani + Raita + Drink</p>
+                <div class="price">₹399</div>
+                <button class="btn btn-add-cart mt-auto"
+                        data-name="Double Chicken Zinger"
+                        data-price="249"
+                        data-img="img/images-main img/manchuria.jpg">
+                  Add to cart
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card menu-card h-100">
+              <img src="img/images-main img/boxmeals.jpg" class="card-img-top" alt="Family Box">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Family Feast Box</h5>
+                <p class="card-text text-muted small">Non veg</p>
+                <p class="card-text">For 4: Chicken + Sides + Drinks</p>
+                <div class="price">₹999</div>
+                <button class="btn btn-add-cart mt-auto"
+                        data-name="Double Chicken Zinger"
+                        data-price="249"
+                        data-img="img/images-main img/manchuria.jpg">
+                  Add to cart
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- === NEW: CHICKEN WINGS === -->
+      <div id="wings" class="menu-section visible">
+        <h2 class="section-title" ><i class="fas fa-drumstick-bite"></i> Chicken Wings</h2>
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="card menu-card h-100">
+              <img src="img/images-main img/nonveg.jpg" class="card-img-top" alt="Hot Wings">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Hot Wings (6pc)</h5>
+                <p class="card-text text-muted small">Non veg</p>
+                <p class="card-text">Spicy, crispy wings</p>
+                <div class="price">₹229</div>
+                <button class="btn btn-add-cart mt-auto"
+                        data-name="Double Chicken Zinger"
+                        data-price="249"
+                        data-img="img/images-main img/manchuria.jpg">
+                  Add to cart
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card menu-card h-100">
+              <img src="img/images-main img/nonveg.jpg" class="card-img-top" alt="Peri Peri Wings">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Peri Peri Wings (6pc)</h5>
+                <p class="card-text text-muted small">Non veg</p>
+                <p class="card-text">Tangy & spicy marinade</p>
+                <div class="price">₹249</div>
+                <button class="btn btn-add-cart mt-auto">Add to cart</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card menu-card h-100">
+              <img src="img/images-main img/nonveg.jpg" class="card-img-top" alt="Smoky Wings">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Smoky Grilled Wings</h5>
+                <p class="card-text text-muted small">Non veg</p>
+                <p class="card-text">BBQ smoked flavor</p>
+                <div class="price">₹259</div>
+                <button class="btn btn-add-cart mt-auto">Add to cart</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card menu-card h-100">
+              <img src="img/images-main img/nonveg.jpg" class="card-img-top" alt="Classic Wings">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Classic Wings (10pc)</h5>
+                <p class="card-text text-muted small">Non veg</p>
+                <p class="card-text">Original crispy wings</p>
+                <div class="price">₹349</div>
+                <button class="btn btn-add-cart mt-auto">Add to cart</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card menu-card h-100">
+              <img src="img/images-main img/nonveg.jpg" class="card-img-top" alt="Wings Combo">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Wings Combo</h5>
+                <p class="card-text text-muted small">Non veg</p>
+                <p class="card-text">8 Wings + Fries + Drink</p>
+                <div class="price">₹399</div>
+                <button class="btn btn-add-cart mt-auto">Add to cart</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card menu-card h-100">
+              <img src="img/images-main img/nonveg.jpg" class="card-img-top" alt="Bucket Wings">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Wings Bucket (15pc)</h5>
+                <p class="card-text text-muted small">Non veg</p>
+                <p class="card-text">Party size wings bucket</p>
+                <div class="price">₹499</div>
+                <button class="btn btn-add-cart mt-auto">Add to cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- === NEW: DESSERTS === -->
+      <div id="desserts" class="menu-section visible-visible">
+        <h2 class="section-title" ><i class="fas fa-ice-cream"></i> Desserts</h2>
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="card menu-card h-100">
+              <img src="img/images-main img/deserts.jpeg" class="card-img-top" alt="Brownie">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Choco Lava Brownie</h5>
+                <p class="card-text text-muted small">Veg</p>
+                <p class="card-text">Warm brownie with molten center</p>
+                <div class="price">₹99</div>
+                <button class="btn btn-add-cart mt-auto">Add to cart</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card menu-card h-100">
+              <img src="img/images-main img/deserts.jpeg" class="card-img-top" alt="Mousse">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Chocolate Mousse</h5>
+                <p class="card-text text-muted small">Veg</p>
+                <p class="card-text">Silky chocolate delight</p>
+                <div class="price">₹89</div>
+                <button class="btn btn-add-cart mt-auto">Add to cart</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card menu-card h-100">
+              <img src="img/images-main img/deserts.jpeg" class="card-img-top" alt="Krusher">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Oreo Krusher</h5>
+                <p class="card-text text-muted small">Veg</p>
+                <p class="card-text">Crushed Oreo in thick shake</p>
+                <div class="price">₹139</div>
+                <button class="btn btn-add-cart mt-auto">Add to cart</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card menu-card h-100">
+              <img src="img/images-main img/deserts.jpeg" class="card-img-top" alt="Sundae">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Hot Chocolate Fudge</h5>
+                <p class="card-text text-muted small">Veg</p>
+                <p class="card-text">Vanilla ice cream + hot fudge</p>
+                <div class="price">₹119</div>
+                <button class="btn btn-add-cart mt-auto">Add to cart</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card menu-card h-100">
+              <img src="img/images-main img/deserts.jpeg" class="card-img-top" alt="Pastry">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Black Forest Pastry</h5>
+                <p class="card-text text-muted small">Veg</p>
+                <p class="card-text">Layered cake with cherries</p>
+                <div class="price">₹79</div>
+                <button class="btn btn-add-cart mt-auto">Add to cart</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card menu-card h-100">
+              <img src="img/images-main img/deserts.jpeg" class="card-img-top" alt="Soft Serve">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Soft Serve Cone</h5>
+                <p class="card-text text-muted small">Veg</p>
+                <p class="card-text">Creamy vanilla swirl</p>
+                <div class="price">₹49</div>
+                <button class="btn btn-add-cart mt-auto">Add to cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- Other sections: variety, chicken, drinks, etc. -->
+      <!-- Use same button pattern -->
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-2 mb-4 footer-logo">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/KFC_logo.svg/1200px-KFC_logo.svg.png" alt="RFC">
+        </div>
+        <!-- Footer content -->
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 RFC. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // === CART LOGIC ===
+    function getCart() {
+      return JSON.parse(localStorage.getItem('kfcCart') || '[]');
+    }
+    function saveCart(cart) {
+      localStorage.setItem('kfcCart', JSON.stringify(cart));
+      updateCartCount();
+    }
+    function updateCartCount() {
+      const cart = getCart();
+      const count = cart.reduce((sum, item) => sum + item.qty, 0);
+      document.getElementById('cartCount').textContent = count;
+    }
+
+    // === ADD TO CART + RIPPLE + REDIRECT ===
+    document.querySelectorAll('.btn-add-cart').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        const rect = this.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const ripple = document.createElement('span');
+        ripple.classList.add('ripple');
+        ripple.style.left = `${x}px`;
+        ripple.style.top = `${y}px`;
+        this.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 700);
+
+        const item = {
+          name: this.dataset.name,
+          price: parseInt(this.dataset.price),
+          img: this.dataset.img,
+          qty: 1
+        };
+
+        let cart = getCart();
+        const existing = cart.find(i => i.name === item.name);
+        if (existing) existing.qty++;
+        else cart.push(item);
+
+        saveCart(cart);
+
+        setTimeout(() => {
+          alert(`${item.name} added! Redirecting to cart...`);
+          window.location.href = 'cart.html';
+        }, 400);
+      });
+    });
+
+    // === SIDEBAR NAVIGATION ===
+    document.querySelectorAll('.menu-category').forEach(cat => {
+      cat.addEventListener('click', function() {
+        const target = this.dataset.target;
+        document.querySelectorAll('.menu-category').forEach(c => c.classList.remove('active'));
+        this.classList.add('active');
+        document.getElementById(target).scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // === FADE-IN ON SCROLL ===
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.menu-section').forEach(sec => observer.observe(sec));
+
+    // === INITIAL LOAD ===
+    window.addEventListener('load', () => {
+      updateCartCount();
+      document.querySelector('.menu-category[data-target="gold"]').classList.add('active');
+    });
+  </script>
+</body>
+</html>

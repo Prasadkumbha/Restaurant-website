@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RFC Checkout Page</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .container-checkout {
+      max-width: 1000px;
+    }
+
+    .kfc-logo {
+        width: 70px; 
+        height: 40px;
+      
+      background-image: url('/images/logo.jpeg');
+      background-size: cover;
+      background-position: center;
+      border-radius: 8px;
+      
+    }
+
+    .checkout-main-content {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease-in-out;
+    }
+
+    .checkout-main-content:hover {
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .order-summary-box {
+      background-color: #ffffff;
+      border: 1px solid #ddd;
+      padding: 20px;
+      border-radius: 10px;
+      position: sticky;
+      top: 20px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .btn-kfc-dark {
+      background-color: #000;
+      color: #fff;
+      padding: 12px;
+      font-weight: bold;
+      border-radius: 4px;
+      transition: background 0.3s;
+    }
+
+    .btn-kfc-dark:hover {
+      background-color: #e21836;
+    }
+
+    .delivery-option {
+      padding: 10px 0;
+    }
+
+    .text-highlight {
+      color: #e21836;
+      font-weight: bold;
+    }:root {
+    --kfc-red: #D62300;      
+    --kfc-dark: #212529;   
+}
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    margin: 0;
+}
+.top-bar {
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    padding: 0.5rem 0;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.top-bar .bi-geo-alt-fill {
+    color: var(--bs-danger);
+}
+.location-btn {
+    background: var(--kfc-dark);
+    color: #fff;
+    border-radius: 2rem;
+    padding: 0.25rem 1rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+    border: none;
+}
+.kfc-header {
+    background: #fff;
+    padding: 1rem 0;
+}
+
+.kfc-logo {
+    font-weight: 900;
+    font-size: 2rem;
+    color: var(--kfc-red);
+    text-decoration: none;
+}
+.kfc-header .nav-link {
+    color: var(--kfc-dark);
+    font-weight: 600;
+    text-decoration: none;
+    padding: 0.5rem 0;
+}
+.divider {
+    color: #ccc;
+    font-weight: 300;
+}
+
+.bucket-link {
+    display: inline-block;
+}
+
+.bucket-icon {
+    width: 32px;
+    height: 40px;
+    object-fit: contain;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.1));
+}
+.kfc-header .icon-link {
+    color: var(--kfc-dark);
+    text-decoration: none;
+}
+.kfc-header .icon-link span {
+    margin-left: 0.35rem;
+}
+.root-header.au .root-header-view .right-nav-container .cart-image {
+        height: 100px;
+        width: 100px;
+        margin: -1px 10px 4px 0;
+        cursor: pointer;
+}
+.cta-bar {
+    background: var(--kfc-dark);
+    color: #fff;
+    padding: 1rem 0;
+    text-align: center;
+}
+.cta-bar p {
+    margin: 0;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+}
+
+.btn-order {
+    background: var(--kfc-red);
+    color: #fff;
+    border: none;
+    border-radius: 2rem;
+    padding: 0.5rem 2rem;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-left: 1rem;
+}
+.modal-header {
+    border-bottom: none;
+}
+.modal-footer {
+    border-top: none;
+}
+@media (max-width: 767.98px) {
+    .kfc-header .d-md-flex {
+        display: none !important;
+    }
+    .kfc-header .col-md-4 {
+        justify-content: center;
+    }
+    .cta-bar .d-md-row {
+        flex-direction: column;
+    }
+    .btn-order {
+        margin-left: 0;
+        margin-top: 0.75rem;
+    }
+}
+  </style>
+</head>
+<body>
+    
+  <div class="container container-checkout">
+    <div class="d-flex justify-content-between align-items-center py-4">
+      <button class="btn btn-outline-secondary px-4 py-2" onclick="goBackToCart()">Back to Cart</button>
+
+      <div class="kfc-logo" alt="KFC Logo"></div>
+
+      <a href="#" class="text-decoration-none text-dark">Need Help?</a>
+    </div>
+
+    <hr class="mt-0 mb-4" />
+
+    <div class="row">
+      <!-- LEFT SIDE -->
+      <div class="col-lg-7">
+        <h1 class="mb-4">
+          <span ></span>
+          CHECKOUT
+          <small class="text-muted ms-3 fs-6"><i class="fas fa-lock me-1"></i> Secure Checkout</small>
+        </h1>
+
+        <!-- DELIVERY ADDRESS -->
+        <div class="checkout-main-content mb-4">
+          <h5 class="fw-bold mb-3">PLEASE ENTER EXACT DELIVERY ADDRESS</h5>
+          <p class="text-muted small" id="locationText">
+            <i class="fas fa-map-marker-alt me-1"></i>
+            Detecting your location...
+            <a href="#" class="ms-2 text-decoration-none" onclick="getLocation()">Refresh</a>
+          </p>
+
+          <div class="mb-3">
+            <input type="text" class="form-control" placeholder="Address 2" />
+          </div>
+          <div class="mb-3">
+            <input type="text" class="form-control" placeholder="House No, Floor, Locality, Landmark" />
+            <small class="text-danger"
+              ><i class="fas fa-exclamation-circle me-1"></i> Mandatory field. Please enter a valid address.</small
+            >
+          </div>
+          <p class="text-muted small"><i class="far fa-clock me-1"></i> ASAP</p>
+        </div>
+
+        <!-- DELIVERY OPTIONS -->
+        <div class="checkout-main-content mb-4">
+          <h5 class="fw-bold mb-3">DELIVERY OPTIONS</h5>
+
+          <div class="form-check delivery-option">
+            <input class="form-check-input" type="radio" name="deliveryOption" id="leaveAtDoor" checked />
+            <label class="form-check-label" for="leaveAtDoor"><strong>Leave at my door</strong></label>
+            <p class="text-muted small mt-1">
+              To protect you and our team, we practice contactless delivery. Your driver will leave the order at your
+              door and wait at a safe distance for you to collect your food.
+            </p>
+          </div>
+
+          <div class="form-check delivery-option">
+            <input class="form-check-input" type="radio" name="deliveryOption" id="handToMe" />
+            <label class="form-check-label" for="handToMe"><strong>Hand it to me</strong></label>
+          </div>
+        </div>
+
+        <!-- SIGN-IN SECTION -->
+        <div class="checkout-main-content">
+          <h5 class="fw-bold mb-3">SIGN IN / SIGN UP TO YOUR ACCOUNT</h5>
+          <button class="btn btn-kfc-dark w-100 mb-3">Sign in / Sign up</button>
+          <div class="text-center">
+            <a href="#" class="text-decoration-none text-dark fw-bold">Continue as a Guest</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT SIDE (ORDER SUMMARY) -->
+      <div class="col-lg-5">
+        <div class="order-summary-box">
+          <h4 class="fw-bold mb-3">ORDER SUMMARY</h4>
+
+          <div class="d-flex justify-content-between py-2 border-bottom">
+            <span id="itemCount">1 ITEM</span>
+            <span class="text-muted"><i class="fas fa-chevron-down"></i></span>
+          </div>
+
+          <div class="d-flex justify-content-between mt-3">
+            <span>Subtotal</span>
+            <span id="subtotalValue">₹0.00</span>
+          </div>
+          <div class="d-flex justify-content-between">
+            <span>GST</span>
+            <span id="gstValue">₹0.00</span>
+          </div>
+          <div class="d-flex justify-content-between pb-3 border-bottom">
+            <span>Restaurant Handling (Incl. taxes)</span>
+            <span id="handlingValue">₹39.00</span>
+          </div>
+
+          <div class="d-flex justify-content-between pt-3">
+            <h5 class="fw-bold">TOTAL:</h5>
+            <h5 class="fw-bold text-highlight" id="totalValue">₹0.00</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    // Dynamic Cart Calculation
+    const cart = [
+      { name: "Zinger Burger", price: 199 },
+      { name: "French Fries", price: 99 },
+      { name: "Pepsi", price: 49 },
+    ];
+
+    function updateCartSummary() {
+      const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
+      const gst = (subtotal * 0.05).toFixed(2);
+      const handling = 39;
+      const total = (subtotal + parseFloat(gst) + handling).toFixed(2);
+
+      document.getElementById("itemCount").innerText = `${cart.length} ITEMS`;
+      document.getElementById("subtotalValue").innerText = `₹${subtotal.toFixed(2)}`;
+      document.getElementById("gstValue").innerText = `₹${gst}`;
+      document.getElementById("totalValue").innerText = `₹${total}`;
+    }
+
+    updateCartSummary();
+
+    // Dynamic Location (using browser geolocation)
+    function getLocation() {
+      const locationText = document.getElementById("locationText");
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (pos) => {
+            const lat = pos.coords.latitude.toFixed(4);
+            const lon = pos.coords.longitude.toFixed(4);
+            locationText.innerHTML = `<i class="fas fa-map-marker-alt me-1"></i> Your Location: 
+            <span class='text-highlight'>Lat: ${lat}, Lon: ${lon}</span>`;
+          },
+          () => {
+            locationText.innerHTML = `<i class="fas fa-map-marker-alt me-1"></i> Unable to fetch location. 
+            <a href="#" onclick="getLocation()">Retry</a>`;
+          }
+        );
+      } else {
+        locationText.innerHTML = `<i class="fas fa-map-marker-alt me-1"></i> Geolocation not supported.`;
+      }
+    }
+
+    // Auto-detect location when page loads
+    window.onload = getLocation;
+
+    function goBackToCart() {
+      alert("Navigating back to the Cart Page!");
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

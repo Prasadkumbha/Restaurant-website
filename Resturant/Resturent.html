@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restaurant Menu | Grid Layout</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+/>
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #fff;
+    }
+
+    .menu-title {
+      text-align: center;
+      margin: 50px 0 30px;
+      font-weight: 700;
+      color: #111;
+      letter-spacing: 1px;
+    }
+
+    .filter-btns {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .filter-btns button {
+      margin: 5px;
+      border-radius: 20px;
+      padding: 8px 20px;
+      border: none;
+      background-color: #e4002b;
+      color: white;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .filter-btns button:hover {
+      background-color: #b80022;
+    }
+
+    .card {
+      border: none;
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .large-card img {
+      height: 380px;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 15px;
+    }
+
+    .small-card img {
+      height: 220px;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .card-body {
+      text-align: center;
+    }
+
+    .card-title {
+      font-weight: 600;
+      color: #e4002b;
+    }.card img {
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      background-color: rgb(5, 5, 5);
+      border-radius: 50%;
+    }
+
+    .carousel-inner {
+      padding: 1rem;
+    }
+    .carousel-control-prev {
+       left: -90px;
+    }
+    .carousel-control-next {
+       right: -90px;
+    }
+      .footer {
+      background-color: #000;
+      color: #fff;
+      padding: 40px 0;
+    }
+    .footer a {
+      color: #ccc;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer a:hover {
+      color: #fff;
+    }
+    .footer-logo img {
+      width: 120px;
+    }
+    .social-icons a {
+      color: #fff;
+      font-size: 1.4rem;
+      margin-right: 15px;
+      transition: 0.3s;
+    }
+    .social-icons a:hover {
+      color: #d72300; /* KFC Red */
+    }
+    .footer-bottom {
+      border-top: 1px solid #333;
+      margin-top: 30px;
+      padding-top: 20px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+    
+    :root {
+    --kfc-red: #D62300;      
+    --kfc-dark: #212529;   
+}
+.top-bar {
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    padding: 0.5rem 0;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.top-bar .bi-geo-alt-fill {
+    color: var(--bs-danger);
+}
+.location-btn {
+    background: var(--kfc-dark);
+    color: #fff;
+    border-radius: 2rem;
+    padding: 0.25rem 1rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+    border: none;
+}
+.kfc-header {
+    background: #fff;
+    padding: 1rem 0;
+}
+
+.kfc-logo {
+    font-weight: 900;
+    font-size: 2rem;
+    color: var(--kfc-red);
+    text-decoration: none;
+}
+.kfc-header .nav-link {
+    color: var(--kfc-dark);
+    font-weight: 600;
+    text-decoration: none;
+    padding: 0.5rem 0;
+}
+.divider {
+    color: #ccc;
+    font-weight: 300;
+}
+
+.bucket-link {
+    display: inline-block;
+}
+
+.bucket-icon {
+    width: 32px;
+    height: 40px;
+    object-fit: contain;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.1));
+}
+.kfc-header .icon-link {
+    color: var(--kfc-dark);
+    text-decoration: none;
+}
+.kfc-header .icon-link span {
+    margin-left: 0.35rem;
+}
+.root-header.au .root-header-view .right-nav-container .cart-image {
+        height: 100px;
+        width: 100px;
+        margin: -1px 10px 4px 0;
+        cursor: pointer;
+}
+.cta-bar {
+    background: var(--kfc-dark);
+    color: #fff;
+    padding: 1rem 0;
+    text-align: center;
+}
+.cta-bar p {
+    margin: 0;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+}
+
+.btn-order {
+    background: var(--kfc-red);
+    color: #fff;
+    border: none;
+    border-radius: 2rem;
+    padding: 0.5rem 2rem;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-left: 1rem;
+}
+.modal-header {
+    border-bottom: none;
+}
+.modal-footer {
+    border-top: none;
+}
+@media (max-width: 767.98px) {
+    .kfc-header .d-md-flex {
+        display: none !important;
+    }
+    .kfc-header .col-md-4 {
+        justify-content: center;
+    }
+    .cta-bar .d-md-row {
+        flex-direction: column;
+    }
+    .btn-order {
+        margin-left: 0;
+        margin-top: 0.75rem;
+    }
+}
+  </style>
+</head>
+<body>
+
+    <div class="top-bar d-flex align-items-center justify-content-center gap-3 flex-wrap">
+    <i class="bi bi-geo-alt-fill text-danger"></i>
+    <span>Allow location access for local store menu and promos</span>
+    <button class="btn location-btn btn-sm" data-bs-toggle="modal" data-bs-target="#locationModal">
+        Set Location
+    </button>
+</div>
+
+<header class="kfc-header container">
+    <div class="row align-items-center">
+        <div class="col-md-4 d-flex align-items-center">
+            <span class="kfc-logo me-4"><img src="logo.png" style="width: 100; height: 70px;"></a></span>
+            <nav class="d-none d-md-flex gap-4">
+                <a href="menu.html" class="nav-link">Menu</a>
+                <a href="#" class="nav-link">Deals</a>
+            </nav>
+        </div>
+
+        <div class="col-md-8 text-md-end d-flex justify-content-end align-items-center gap-3">
+            <a href="login.html" class="text-dark"><i class="bi bi-person-circle fs-4"></i> <span class="d-none d-lg-inline">Sign In</span></a>
+            <span class="divider">|</span>
+            <a href="cart.html" class="bucket-link"><img src="cart.png" style="height: 60px;" alt="Order Bucket" class="bucket-icon"></a>
+        </div>
+    </div>
+</header>
+
+<section class="cta-bar">
+    <div class="container d-flex flex-column flex-md-row justify-content-center align-items-center gap-3">
+        <p class="mb-0 text-uppercase fw-bold">Let’s order for delivery, pick up, or dine-in</p>
+        <button class="btn btn-order text-white">Start Order</button>
+    </div>
+</section>
+<div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="locationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="locationModalLabel">Set Your Location</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="small text-muted">We’ll use your location to show the menu &amp; promos for the nearest KFC.</p>
+                <div class="d-grid gap-2">
+                    <button id="useCurrentLocation" class="btn btn-outline-danger">
+                        <i class="bi bi-geo-alt"></i> Use Current Location
+                    </button>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Enter city or postcode">
+                        <button class="btn btn-danger">Search</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+  <h2 class="menu-title">BROWSE MENU CATEGORIES</h2>
+
+  <!-- Filter Buttons -->
+  <div class="filter-btns">
+    <button class="filter" data-filter="all">All</button>
+    <button class="filter" data-filter="veg">Veg</button>
+    <button class="filter" data-filter="nonveg">Non-Veg</button>
+    <button class="filter" data-filter="drinks">Drinks</button>
+  </div>
+
+  <!-- Large Featured Card -->
+  <div class="row mb-4">
+    <div class="col-12 menu-item all nonveg">
+      <div class="card large-card">
+        <img src="img/images-main img/bucket.jpg" alt="All in One Bucket">
+        <div class="card-body">
+          <h4 class="card-title">ALL IN ONE BUCKET</h4>
+          <p class="card-text">Crispy chicken, dips, and a refreshing drink — everything in one perfect combo!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Grid of Smaller Cards -->
+  <div class="row g-4">
+    <div class="col-md-4 col-sm-6 menu-item nonveg">
+      <a href="gold.html" class="text-decoration-none text-dark d-block h-100">
+        <div class="card small-card">
+          <img src="img/images-main img/gold adition.jpg" alt="Gold Edition">
+          <div class="card-body">
+            <h5 class="card-title">GOLD EDITION</h5>
+            <p class="card-text">Chicken burger combo with fries.</p>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="col-md-4 col-sm-6 menu-item nonveg">
+      <a href="chicken.html" class="text-decoration-none text-dark d-block h-100">
+        <div class="card small-card">
+        <img src="img/images-main img/boxmeals.jpg" alt="Box Meals">
+        <div class="card-body">
+          <h5 class="card-title">BOX MEALS</h5>
+          <p class="card-text">Combo meal with chicken, fries & drink.</p>
+        </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="col-md-4 col-sm-6 menu-item veg">
+      <a href="variety.html" class="text-decoration-none text-dark d-block h-100">
+        <div class="card small-card">
+        <img src="img/images-main img/veg.jpg" alt="Veg Meal">
+        <div class="card-body">
+          <h5 class="card-title">VEG MEAL</h5>
+          <p class="card-text">Delicious veggie burger with fries.</p>
+        </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="col-md-4 col-sm-6 menu-item drinks">
+      <a href="drink.html" class="text-decoration-none text-dark d-block h-100">
+        <div class="card small-card">
+        <img src="img/images-main img/drinks.jpg" alt="Drinks">
+        <div class="card-body">
+          <h5 class="card-title">DRINKS</h5>
+          <p class="card-text">Cool drinks & shakes.</p>
+        </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="col-md-4 col-sm-6 menu-item veg">
+      <a href="pizza.html" class="text-decoration-none text-dark d-block h-100">
+      <div class="card small-card">
+        <img src="img/images-main img/vegpizza.jpg" alt="Pizza">
+        <div class="card-body">
+          <h5 class="card-title">VEG PIZZA</h5>
+          <p class="card-text">Hot cheesy pizza with toppings.</p>
+        </div>
+      </div>
+      </a>
+    </div>
+
+    <div class="col-md-4 col-sm-6 menu-item nonveg">
+      <a href="chicken.html" class="text-decoration-none text-dark d-block h-100">
+      <div class="card small-card">
+        <img src="img/images-main img/nonveg.jpg" alt="Wings">
+        <div class="card-body">
+          <h5 class="card-title">CHICKEN WINGS</h5>
+          <p class="card-text">Crispy wings with spicy sauce.</p>
+        </div>
+      </div>
+      </a>
+    </div>
+
+    <div class="col-md-4 col-sm-6 menu-item veg">
+      <a href="variety.html" class="text-decoration-none text-dark d-block h-100">
+      <div class="card small-card">
+        <img src="img/images-main img/manchuria.jpg" alt="Starters">
+        <div class="card-body">
+          <h5 class="card-title">VEG STARTERS</h5>
+          <p class="card-text">Crispy & spicy appetizers.</p>
+        </div>
+      </div>
+      </a>
+    </div>
+
+    <div class="col-md-4 col-sm-6 menu-item drinks">
+      <a href="gold.html" class="text-decoration-none text-dark d-block h-100">
+      <div class="card small-card">
+        <img src="img/images-main img/deserts.jpeg" alt="Desserts">
+        <div class="card-body">
+          <h5 class="card-title">DESSERTS</h5>
+          <p class="card-text">Sweet treats and milkshakes.</p>
+        </div>
+      </div>
+      </a>
+    </div>
+
+    <div class="col-md-4 col-sm-6 menu-item nonveg">
+      <a href="chicken.html" class="text-decoration-none text-dark d-block h-100">
+      <div class="card small-card">
+        <img src="img/images-main img/nonveg.jpg" alt="Non Veg Meal">
+        <div class="card-body">
+          <h5 class="card-title">NON-VEG MEAL</h5>
+          <p class="card-text">Flavorful chicken combo meal.</p>
+        </div>
+      </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="container py-5">
+    <h2 class="text-center mb-4 fw-bold">🍴 Restaurant Offers</h2>
+
+    <!-- Bootstrap Carousel -->
+    <div id="offerCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+
+        <!-- Slide 1 -->
+        <div class="carousel-item active">
+          <div class="row justify-content-center g-4">
+            <!-- Card 1 -->
+            <div class="col-md-4">
+              <div class="card h-100 shadow-sm">
+                <img src="img/img-offers/chicken-biriyani.jpg" class="card-img-top" alt="Chicken Biriyani">
+                <div class="p-3">
+                  <h5 class="fw-bold">Chicken Biriyani</h5>
+                  <p class="text-muted mb-2">Order Value: ₹149</p>
+                  <button class="btn btn-danger w-100 rounded-4">
+                    <i class="fa-solid fa-tag me-2"></i>Apply Offer
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="col-md-4">
+              <div class="card h-100 shadow-sm">
+                <img src="img/img-offers/paneer butter masala.jpg" class="card-img-top" alt="Paneer Butter Masala">
+                <div class="p-3">
+                  <h5 class="fw-bold">Paneer Butter Masala</h5>
+                  <p class="text-muted mb-2">Order Value: ₹299</p>
+                  <button class="btn btn-danger w-100 rounded-4">
+                    <i class="fa-solid fa-tag me-2"></i>Apply Offer
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="col-md-4">
+              <div class="card h-100 shadow-sm">
+                <img src="img/img-offers/chicken majestic.jpg" class="card-img-top" alt="Chicken Majestic">
+                <div class="p-3">
+                  <h5 class="fw-bold">Chicken Majestic</h5>
+                  <p class="text-muted mb-2">Order Value: ₹259</p>
+                  <button class="btn btn-danger w-100 rounded-4">
+                    <i class="fa-solid fa-tag me-2"></i>Apply Offer
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="carousel-item">
+          <div class="row justify-content-center g-4">
+            <!-- Card 4 -->
+            <div class="col-md-4">
+              <div class="card h-100 shadow-sm">
+                <img src="img/img-offers/muushroom masala.jpg" class="card-img-top" alt="Mushroom Masala">
+                <div class="p-3">
+                  <h5 class="fw-bold">Mushroom Masala</h5>
+                  <p class="text-muted mb-2">Order Value: ₹199</p>
+                  <button class="btn btn-danger w-100 rounded-4">
+                    <i class="fa-solid fa-tag me-2"></i>Apply Offer
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="col-md-4">
+              <div class="card h-100 shadow-sm">
+                <img src="img/img-offers/panner bhurji.jpg" class="card-img-top" alt="Paneer Bhurji">
+                <div class="p-3">
+                  <h5 class="fw-bold">Paneer Bhurji</h5>
+                  <p class="text-muted mb-2">Order Value: ₹239</p>
+                  <button class="btn btn-danger w-100 rounded-4">
+                    <i class="fa-solid fa-tag me-2"></i>Apply Offer
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="col-md-4">
+              <div class="card h-100 shadow-sm">
+                <img src="img/img-offers/chicken korma.jpg" class="card-img-top" alt="Chicken Korma">
+                <div class="p-3">
+                  <h5 class="fw-bold">Chicken Korma</h5>
+                  <p class="text-muted mb-2">Order Value: ₹319</p>
+                  <button class="btn btn-danger w-100 rounded-4">
+                    <i class="fa-solid fa-tag me-2"></i>Apply Offer
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="carousel-item">
+          <div class="row justify-content-center g-4">
+            <!-- Card 7 -->
+            <div class="col-md-4">
+              <div class="card h-100 shadow-sm">
+                <img src="img/img-offers/chicken madras.jpg" class="card-img-top" alt="Chicken Madras">
+                <div class="p-3">
+                  <h5 class="fw-bold">Chicken Madras Curry</h5>
+                  <p class="text-muted mb-2">Order Value: ₹279</p>
+                  <button class="btn btn-danger w-100 rounded-4">
+                    <i class="fa-solid fa-tag me-2"></i>Apply Offer
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 8 -->
+            <div class="col-md-4">
+              <div class="card h-100 shadow-sm">
+                <img src="img/img-offers/chicken wings.jpg" class="card-img-top" alt="Chicken Wings">
+                <div class="p-3">
+                  <h5 class="fw-bold">Wings Masala</h5>
+                  <p class="text-muted mb-2">Order Value: ₹199</p>
+                  <button class="btn btn-danger w-100 rounded-4">
+                    <i class="fa-solid fa-tag me-2"></i>Apply Offer
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 9 -->
+            <div class="col-md-4">
+              <div class="card h-100 shadow-sm">
+                <img src="img/img-offers/tandoori.jpg" class="card-img-top" alt="Chicken Tandoori">
+                <div class="p-3">
+                  <h5 class="fw-bold">Chicken Tandoori</h5>
+                  <p class="text-muted mb-2">Order Value: ₹299</p>
+                  <button class="btn btn-danger w-100 rounded-4">
+                    <i class="fa-solid fa-tag me-2"></i>Apply Offer
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="carousel-item">
+          <div class="row justify-content-center g-4">
+            <!-- Card 10 -->
+            <div class="col-md-4">
+              <div class="card h-100 shadow-sm">
+                <img src="img/img-offers/chicken fried rice.jpg" class="card-img-top" alt="Chicken Fried Rice">
+                <div class="p-3">
+                  <h5 class="fw-bold">Chicken Fried Rice</h5>
+                  <p class="text-muted mb-2">Order Value: ₹299</p>
+                  <button class="btn btn-danger w-100 rounded-4">
+                    <i class="fa-solid fa-tag me-2"></i>Apply Offer
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="card h-100 shadow-sm">
+                <img src="img/img-offers/dessert.jpg" class="card-img-top" alt="Chicken Fried Rice">
+                <div class="p-3">
+                  <h5 class="fw-bold">Pastry</h5>
+                  <p class="text-muted mb-2">Order Value: ₹99</p>
+                  <button class="btn btn-danger w-100 rounded-4">
+                    <i class="fa-solid fa-tag me-2"></i>Apply Offer
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Carousel Controls -->
+      <button class="carousel-control-prev" type="button" data-bs-target="#offerCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+
+      <button class="carousel-control-next" type="button" data-bs-target="#offerCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </div>
+
+<!--Footer-->
+     <!-- Footer Section -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <!-- Logo & Description -->
+        <div class="col-md-2 mb-4 footer-logo">
+          <img src="img/footer/footer.jpg" alt="KFC Logo">
+        </div>
+
+          <!-- KFC Links -->
+        <div class="col-md-2 mb-4">
+          <h5 class="fw-bold">RFC</h5>
+          <ul class="list-unstyled">
+            <li><a href="#">About RFC</a></li>
+            <li><a href="#"> Care</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Responsible Disclousre</a></li>
+          </ul>
+        </div>
+
+        <!-- Menu Links -->
+        <div class="col-md-2 mb-4">
+          <h5 class="fw-bold">Menu</h5>
+          <ul class="list-unstyled">
+            <li><a href="#">Chicken Buckets</a></li>
+            <li><a href="#">Burgers</a></li>
+            <li><a href="#">Snacks</a></li>
+            <li><a href="#">Beverages</a></li>
+          </ul>
+        </div>
+
+        <!-- Company Links -->
+        <div class="col-md-2 mb-4">
+          <h5 class="fw-bold">Legal</h5>
+          <ul class="list-unstyled">
+            <li><a href="#">Terms and Conditions</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Disclaimer</a></li>
+            <li><a href="#">Caution Notice</a></li>
+          </ul>
+        </div>
+
+         <!-- Support Links -->
+        <div class="col-md-2 mb-4">
+          <h5 class="fw-bold">Support</h5>
+          <ul class="list-unstyled">
+            <li><a href="#">Get Help</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">RFC Feedback</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+
+        <!-- Social Media -->
+        <div class="col-md-2 mb-4">
+          <h5 class="fw-bold">Follow Us</h5>
+          <div class="social-icons mt-3">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/thegrill.com18?igsh=MXZhemIxbHdkY3hmNg=="><i class="fab fa-instagram"></i></a>
+            <a href="http://www.rfc.com/"><i class="fa fa-globe"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+          <br> <br>
+          <p class="mt-3">Download the RFC App</p>
+          <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Play Store" width="120"></a>
+
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2025All Rights Reserved | Designed by <strong>RFC</strong></p>
+      </div>
+    </div>
+  </footer>
+
+
+     
+
+
+<!-- JS for Filtering -->
+<script>
+  const filterButtons = document.querySelectorAll('.filter');
+  const menuItems = document.querySelectorAll('.menu-item');
+
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const category = btn.getAttribute('data-filter');
+
+      menuItems.forEach(item => {
+        if (category === 'all' || item.classList.contains(category)) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+  });
+
+
+   document.addEventListener('DOMContentLoaded', () => {
+  const useLocationBtn = document.getElementById('useCurrentLocation');
+
+  useLocationBtn.addEventListener('click', () => {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const lat = position.coords.latitude.toFixed(4);
+          const lon = position.coords.longitude.toFixed(4);
+          alert(`Location acquired!\nLatitude: ${lat}, Longitude: ${lon}`);
+          
+          // Hide modal
+          const modalEl = document.getElementById('locationModal');
+          const modal = bootstrap.Modal.getInstance(modalEl);
+          modal.hide();
+        },
+        (error) => {
+          alert('Unable to retrieve location: ' + error.message);
+        }
+      );
+    } else {
+      alert('Geolocation is not supported by your browser.');
+    }
+  });
+});
+
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
